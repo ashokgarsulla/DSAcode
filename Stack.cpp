@@ -250,6 +250,40 @@ long long MaximumAreaInBinaryMatrix(long long mat[4][4], long long R, long long 
     
     return max;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Design min Sract with extra sapace
+stack<int> glbl_stack;
+stack<int> glbl_ss_stack;
+
+void specialStackPush(int a) {
+    glbl_stack.push(a);
+    
+    if(glbl_ss_stack.size() == 0 || glbl_ss_stack.top() >= a)
+    glbl_ss_stack.push(a);
+    return ;
+}
+
+int specialStackPop() {
+    
+    if(glbl_stack.size() == 0) 
+    return -1;
+    
+    int ans = glbl_stack.top();
+    glbl_stack.pop();
+    
+    if(ans == glbl_ss_stack.top())
+    glbl_ss_stack.pop();
+    
+    return ans;
+}
+
+int specialStackGetMin() {
+    if(glbl_ss_stack.size() == 0)
+    return -1;
+    
+    return glbl_ss_stack.top();
+    
+}
 int main() {
     vector<long long> Next_Greater_Element;
 	int arr[] = {1,3,6,7,2,10};
@@ -270,5 +304,17 @@ int main() {
 	cout<<"\nStock Span Problem "; PrintVector(StockSapanProblem(arr,n));
 	cout<<"\nMaximum Area of Histogram "<<MaximumAreaHistogram(llarr,lln);
 	cout<<"\nMaximum Area in Binary Matrix "<<MaximumAreaInBinaryMatrix(binMAT,4,4);
+	cout<<"\nSpecial stack extra space push(a)  ";
+	specialStackPush(18);
+	specialStackPush(25);
+	specialStackPush(15);
+	specialStackPush(32);
+	cout<<"\nSpecial stack extra space pop()  "<<specialStackPop();
+	cout<<"\nSpecial stack extra space getmin()  "<<specialStackGetMin();
+	specialStackPush(11);
+	cout<<"\nSpecial stack extra space pop()  "<<specialStackPop();
+	cout<<"\nSpecial stack extra space getmin()  "<<specialStackGetMin();
+	
+	
 	return 0;
 }
