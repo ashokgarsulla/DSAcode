@@ -284,6 +284,75 @@ int specialStackGetMin() {
     return glbl_ss_stack.top();
     
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Design min Sract with extra sapace
+stack<int> glbl_stack_for_without_spacestack;
+int minimum_element;
+
+//push
+void specialStackPushWithoutExtraSpace(int a) {
+    // if satck is empty
+    if(glbl_stack_for_without_spacestack.size() == 0) {
+        glbl_stack_for_without_spacestack.push(a);
+        minimum_element = a;
+    }
+    // stack is not empty
+    else {
+        if( a >= minimum_element){
+            glbl_stack_for_without_spacestack.push(a);
+        }
+        else if(a < minimum_element) {
+            glbl_stack_for_without_spacestack.push(2 * a - minimum_element); // push 2 * a - minimum_element
+            minimum_element = a;
+        }
+    }
+    
+}
+
+// pop()
+void specialStackPopWithoutExtraSpace() {
+    
+    if(glbl_stack_for_without_spacestack.size() == 0) 
+    return ;
+    else {
+        if(glbl_stack_for_without_spacestack.top() >= minimum_element) {
+            glbl_stack_for_without_spacestack.pop();
+        }
+        else if(glbl_stack_for_without_spacestack.top() < minimum_element) {
+            // Update minimum element  = 2 * minimum_element - stack.top()
+            minimum_element = 2 * minimum_element - glbl_stack_for_without_spacestack.top(); 
+            glbl_stack_for_without_spacestack.pop();
+        }
+        
+    }
+    
+}
+
+// top()
+
+int specialStackTopWithoutExtraSpace() {
+    if(glbl_stack_for_without_spacestack.size() == 0)
+    return -1;
+    else {
+        if(glbl_stack_for_without_spacestack.top() >= minimum_element) {
+            return glbl_stack_for_without_spacestack.top();
+        }
+        else if(glbl_stack_for_without_spacestack.top() < minimum_element) {
+            return minimum_element;
+        }
+    }
+    return minimum_element;
+}
+
+//getMin()
+int specialStackGetMinWithoutExtraSpace() {
+    if(glbl_stack_for_without_spacestack.size() == 0) {
+        return -1;
+    }
+    return minimum_element;
+}
+
 int main() {
     vector<long long> Next_Greater_Element;
 	int arr[] = {1,3,6,7,2,10};
@@ -314,6 +383,24 @@ int main() {
 	specialStackPush(11);
 	cout<<"\nSpecial stack extra space pop()  "<<specialStackPop();
 	cout<<"\nSpecial stack extra space getmin()  "<<specialStackGetMin();
+	cout<<"\nSpecial stack O(1) space top()  "<<specialStackTopWithoutExtraSpace();
+	cout<<"\nSpecial stack O(1) space getMin()  "<<specialStackGetMinWithoutExtraSpace();
+	cout<<"\nSpecial stack O(1) space push()  "<<5;
+	specialStackPushWithoutExtraSpace(5);
+	cout<<"\nSpecial stack O(1) space getMin()  "<<specialStackGetMinWithoutExtraSpace();
+	cout<<"\nSpecial stack O(1) space top()  "<<specialStackTopWithoutExtraSpace();
+	cout<<"\nSpecial stack O(1) space push()  "<<7;
+	specialStackPushWithoutExtraSpace(7);
+	specialStackPushWithoutExtraSpace(3);
+	specialStackPushWithoutExtraSpace(8);
+	specialStackPushWithoutExtraSpace(4);
+	specialStackPushWithoutExtraSpace(2);
+	specialStackPushWithoutExtraSpace(9);
+	cout<<"\nSpecial stack O(1) space top()  "<<specialStackTopWithoutExtraSpace();
+	cout<<"\nSpecial stack O(1) space getMin()  "<<specialStackGetMinWithoutExtraSpace();
+	cout<<"\nSpecial stack O(1) space pop()  ";
+	specialStackPopWithoutExtraSpace();
+	cout<<"\nSpecial stack O(1) space top()  "<<specialStackTopWithoutExtraSpace();
 	
 	
 	return 0;
