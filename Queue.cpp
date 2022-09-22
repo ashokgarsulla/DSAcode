@@ -1,6 +1,11 @@
 #include <bits/stdc++.h> 
 using namespace std;
 
+
+void printVector(vector<long long> A) {
+    for(auto i: A) cout<<i<<" ";
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 0.queueSTLTesting
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -356,6 +361,44 @@ queue<int> rev(queue<int> q)
     return q;
 }
 
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 7.First negative integer in every window of size K
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+vector<long long> printFirstNegativeInteger(long long int A[],long long int N, long long int K) {
+    
+    queue<long long int> q;
+    vector<long long> ans;
+    
+    for(int i =0; i < K ;i++) {
+        if(A[i] < 0) q.push(i);
+    }
+    
+    if(q.size() > 0) ans.push_back(A[q.front()]);
+    else ans.push_back(0);
+    
+    for(int i =K; i < N ; i++) {
+        //remove
+        if(!q.empty() && i - q.front() >= K) q.pop();
+        // add next
+        if(A[i] < 0) q.push(i);
+        
+        
+        // storing answer
+        if(q.size() > 0) {
+        ans.push_back(A[q.front()]);
+        }
+        else ans.push_back(0);
+        
+    }
+     return ans;                           
+                                                 
+                        
+                                                 
+ }
+ 
 int main() {
 	
 	queueSTLTesting();
@@ -414,6 +457,12 @@ int main() {
     queue<int> result = rev(q1);
     cout<<"\nqueue after reversal front "<<result.front();
     
+    cout<<"\nFirst negative Number ";
+    long long int N = 10;
+    long long int arr[N]= {1,3,-3,5,5,-4,-5,2,5,7};
+    long long int Window_size = 3;
+    vector<long long> negative =  printFirstNegativeInteger(arr,N,Window_size);
+    printVector(negative);
     
 	return 0;
 }
