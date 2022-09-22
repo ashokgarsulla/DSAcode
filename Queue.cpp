@@ -1,11 +1,19 @@
 #include <bits/stdc++.h> 
 using namespace std;
 
-
+//print vector
 void printVector(vector<long long> A) {
     for(auto i: A) cout<<i<<" ";
 }
 
+// print queue
+void printQueue(queue<int> q) {
+    while (!q.empty()) {
+            int a = q.front();
+            q.pop();
+            cout << a << " ";
+        }
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 0.queueSTLTesting
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -398,9 +406,35 @@ vector<long long> printFirstNegativeInteger(long long int A[],long long int N, l
                         
                                                  
  }
- 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 7.Reverse first k elements of a queue
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+queue<int> ReverseFirstKElementofQueue(queue<int> q, int k) {
+    stack<int> s;
+    for(int i = 0; i < k; i++) {
+        int value = q.front();
+        s.push(value);
+        q.pop();
+    }
+    
+    while(!s.empty()){
+        int val = s.top();
+        q.push(val);
+        s.pop();
+    }
+    
+    for(int i=0 ; i < q.size()-k; i++) {
+        int val = q.front();
+        q.push(val);
+        q.pop();
+    }
+    
+    return q;
+}
 int main() {
-	
+	queue<int> result;
 	queueSTLTesting();
 	cout<<"Queue Implemented :"<<endl;
     Queue q;
@@ -454,7 +488,7 @@ int main() {
     q1.push(6);
     q1.push(7);
     cout<<"\nqueue before reversal front "<<q1.front();
-    queue<int> result = rev(q1);
+    result = rev(q1);
     cout<<"\nqueue after reversal front "<<result.front();
     
     cout<<"\nFirst negative Number ";
@@ -464,5 +498,11 @@ int main() {
     vector<long long> negative =  printFirstNegativeInteger(arr,N,Window_size);
     printVector(negative);
     
+    cout<<"\nReverse of First K element of Queue";
+    cout<<"\nBefore reverse: ";
+    printQueue(q1);
+    result = ReverseFirstKElementofQueue(q1,3);
+    cout<<"\nAfetr reverse: ";
+    printQueue(result);
 	return 0;
 }
