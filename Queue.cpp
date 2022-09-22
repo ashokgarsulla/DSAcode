@@ -477,6 +477,34 @@ string FirstNonRepeating(string A){
     return ans;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 9.Circular tour
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int truckTourCircular(vector<vector<int>> petrolpumps) {
+    int petrol_ki_kami = 0;
+    int balance = 0;
+    int should_start_index = 0;
+    // int size = petrolpumps.size();
+    // cout<<"==="<<size;
+    for(int i =0 ; i < petrolpumps.size(); i++) {
+        balance += petrolpumps[i][0] - petrolpumps[i][1];
+        
+        if(balance < 0) {
+            petrol_ki_kami = petrol_ki_kami + balance;
+            should_start_index = i + 1;
+            balance =0;
+        }
+    }
+     if(petrol_ki_kami + balance >= 0) {
+            return should_start_index;
+        }
+    else {
+        return -1;
+    }
+}
+
+
 int main() {
 	queue<int> result;
 	string answer;
@@ -550,10 +578,14 @@ int main() {
     cout<<"\nAfetr reverse: ";
     printQueue(result);
     
-    cout<<"\nFirst Non-Repeating character in stream";
+    cout<<"\nFirst Non-Repeating character in stream: ";
     string u_input_string = "aabccb";
     answer = FirstNonRepeating(u_input_string);
     printString(answer);
+    
+    cout<<"\nCircular Tour : ";
+    vector<vector<int>> petral_distance = {{4,6},{6,5},{7,3},{4,5}};
+    cout<<"\nStartinf index should :"<<truckTourCircular(petral_distance);
     
 	return 0;
 }
