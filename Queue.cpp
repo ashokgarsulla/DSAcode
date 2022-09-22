@@ -14,6 +14,11 @@ void printQueue(queue<int> q) {
             cout << a << " ";
         }
 }
+
+// Print string
+void printString(string s) {
+    for(int i =0; i < s.length(); i++) cout<<s[i];
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 0.queueSTLTesting
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -339,12 +344,12 @@ public:
 // ###########################################################################################################
 //                  INTERVIEW QUESTION
 // 1.Queue Reversal:
-// 5.First negative integer in every window of size K:https:
-// 3.Reverse first K element of Queue: https:
-// 4.First Non-Repeating character in stream:https:
-// 5.Circular tour: https:
-// 6.K Queue in Single Array:https:
-// 7.Sum of min & max elements of all subarray of size K: https:
+// 2.First negative integer in every window of size K:
+// 3.Reverse first K element of Queue: 
+// 4.First Non-Repeating character in stream:
+// 5.Circular tour: 
+// 6.K Queue in Single Array:
+// 7.Sum of min & max elements of all subarray of size K:
 
 // ###########################################################################################################
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -433,8 +438,48 @@ queue<int> ReverseFirstKElementofQueue(queue<int> q, int k) {
     
     return q;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 8.First Non-Repeating character in stream
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+string FirstNonRepeating(string A){
+    unordered_map<char,int> count;
+    queue<int> q;
+    string ans = "";
+    
+    for(int i =0 ; i < A.length(); i++) {
+        char ch  = A[i];
+        //inccrease count
+        count[ch]++;
+        
+        //push in queue
+        q.push(ch);
+        
+        
+        while(!q.empty()) {
+            
+            if(count[q.front()] > 1) {
+                q.pop();
+            }
+            else {
+                ans.push_back(q.front());
+                break;
+            }
+        }
+        
+        if(q.empty()){
+            ans.push_back('#');
+        }
+        
+    }
+    
+    return ans;
+}
+
 int main() {
 	queue<int> result;
+	string answer;
 	queueSTLTesting();
 	cout<<"Queue Implemented :"<<endl;
     Queue q;
@@ -504,5 +549,11 @@ int main() {
     result = ReverseFirstKElementofQueue(q1,3);
     cout<<"\nAfetr reverse: ";
     printQueue(result);
+    
+    cout<<"\nFirst Non-Repeating character in stream";
+    string u_input_string = "aabccb";
+    answer = FirstNonRepeating(u_input_string);
+    printString(answer);
+    
 	return 0;
 }
