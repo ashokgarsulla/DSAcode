@@ -323,6 +323,38 @@ public:
     }
 };
 
+// ###########################################################################################################
+//                  INTERVIEW QUESTION
+// 1.Queue Reversal:
+// 5.First negative integer in every window of size K:https:
+// 3.Reverse first K element of Queue: https:
+// 4.First Non-Repeating character in stream:https:
+// 5.Circular tour: https:
+// 6.K Queue in Single Array:https:
+// 7.Sum of min & max elements of all subarray of size K: https:
+
+// ###########################################################################################################
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 6.Queue Reversal
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+queue<int> rev(queue<int> q)
+{
+    stack<int> s;
+    
+    while(!q.empty()){
+        int x =q.front();
+        s.push(x);
+        q.pop();
+    }
+    
+    while(!s.empty()) {
+        int x = s.top();
+        q.push(x);
+        s.pop();
+    }
+    return q;
+}
 
 int main() {
 	
@@ -368,6 +400,20 @@ int main() {
     cout<<"\npop Rear :"<<dq_impl.popRear();
     cout<<"\nget Front :"<<dq_impl.getFront();
     cout<<"\nget Rear :"<<dq_impl.getRear();
+    
+    cout<<"\nqueue reversal ";
+    queue<int> q1;
+    q1.push(1);
+    q1.push(2);
+    q1.push(3);
+    q1.push(4);
+    q1.push(5);
+    q1.push(6);
+    q1.push(7);
+    cout<<"\nqueue before reversal front "<<q1.front();
+    queue<int> result = rev(q1);
+    cout<<"\nqueue after reversal front "<<result.front();
+    
     
 	return 0;
 }
